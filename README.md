@@ -112,10 +112,12 @@ $$
 
 將兩段函數組合在一起可以得到
 
+$$
 \begin{cases}
-    y=x, &\text{ for } x\in[0,255], \\
-    y-255=-(x-255), &\text{ for }x\in[255,510].
-\end{cases} 一般會稱此種分段定義的函數為分段函數(piecewise function)
+y=x, &\text{ for } x\in[0,255], \\
+y-255=-(x-255), &\text{ for }x\in[255,510].
+\end{cases}
+$$ 一般會稱此種分段定義的函數為分段函數(piecewise function)
 
 如果畫出圖形，觀察可以得知是以 $x=255$ 對稱的函數，我們可以用絕對值表示
 
