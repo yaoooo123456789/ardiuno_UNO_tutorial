@@ -117,7 +117,9 @@ $$
 y=x, &\text{ for } x\in[0,255], \\
 y-255=-(x-255), &\text{ for }x\in[255,510].
 \end{cases}
-$$ 一般會稱此種分段定義的函數為分段函數(piecewise function)
+$$ 
+
+一般會稱此種分段定義的函數為分段函數(piecewise function)
 
 如果畫出圖形，觀察可以得知是以 $x=255$ 對稱的函數，我們可以用絕對值表示
 
@@ -218,11 +220,13 @@ void loop() {
 `void loop()` 執行一次為一個週期，在上述程式碼中，固定都是以 $i=0$ 到 $i=509$ 為一個週期，換句話說一次呼吸會做 $1+509=510$ 次的變化。
 
 假設現在一次週期有 $N$ 次變化，以 $x=\frac{N}{2}$ 做對稱軸時，第一條線段會通過 $P_1(0,0),P_2(\frac{N}{2},255)$，第二條線段會通過$P_2(\frac{N}{2},255),P_3(N,0)$。將上述的分段函數寫成
-
+$$
 \begin{cases}
     y = \dfrac{510}{N}x, &\text{for } x\in\left[0,\frac{N}{2}\right], \\
     y-255 = -\dfrac{510}{N}\left(x-\frac{N}{2}\right), &\text{for } x\in\left[\frac{N}{2},N\right].
-\end{cases} 用絕對值表示的話
+\end{cases} 
+$$
+用絕對值表示的話
 
 \begin{align}
     y
