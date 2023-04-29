@@ -104,12 +104,14 @@ LED燈亮暗要靠 `analogWrite(pin, value)` 控制 `value` 的數值，上述�
 一樣給定兩個點 $$P_1(510,0),\quad P_2(255,255)$$ 從 $255$ 至 $0$ 的斜率為 $m=-1$ ，其直線方程式為 $$y-255=-(x-255)$$
 
 將兩段函數組合在一起可以得到
+
 \begin{cases}
     y=x, &\text{ for } x\in[0,255], \\
     y-255=-(x-255), &\text{ for }x\in[255,510].
 \end{cases} 一般會稱此種分段定義的函數為分段函數(piecewise function)
 
 如果畫出圖形，觀察可以得知是以 $x=255$ 對稱的函數，我們可以用絕對值表示
+
 \begin{equation}
     y-255 = -\lvert x-255 \rvert, \text{ for }x\in[0,510]
 \end{equation}
@@ -164,6 +166,7 @@ void loop() {
 其中絕對值函數 $f(x)=\vert x \vert$ 與二次多項式函數 $g(x)=x^2$ 有遞增與遞減的區間，可用於製作會「呼吸的函數」。
 
 Joshua Hrisko 給了幾個設計好的函數。其中一個由圓的方程式而來，考慮以半徑$r=255$，圓心為$(0,255)$的圓方程式
+
 \begin{equation}
     y^2+(x-255)^2 = 255^2
 \end{equation}
@@ -206,12 +209,11 @@ void loop() {
 `void loop()` 執行一次為一個週期，在上述程式碼中，固定都是以 $i=0$ 到 $i=509$ 為一個週期，換句話說一次呼吸會做 $1+509=510$ 次的變化。
 
 假設現在一次週期有 $N$ 次變化，以 $x=\frac{N}{2}$ 做對稱軸時，第一條線段會通過 $P_1(0,0),P_2(\frac{N}{2},255)$，第二條線段會通過$P_2(\frac{N}{2},255),P_3(N,0)$。將上述的分段函數寫成
-$$
+
 \begin{cases}
     y = \dfrac{510}{N}x, &\text{for } x\in\left[0,\frac{N}{2}\right], \\
     y-255 = -\dfrac{510}{N}\left(x-\frac{N}{2}\right), &\text{for } x\in\left[\frac{N}{2},N\right].
 \end{cases} 用絕對值表示的話
-$$
 
 \begin{align}
     y
