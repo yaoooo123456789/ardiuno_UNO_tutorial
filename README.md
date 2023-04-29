@@ -16,7 +16,7 @@
 ## 先備知識與器材 Preliminary
 在開始實作前，需要先準備一些基礎知識
 1. **直線方程式中的點斜式 Point-slope**
-    給定不相同兩點 $P_1(x_1,y_1),P_2(x_2,y_2)$，其斜率為 $m=\dfrac{y_2-y_1}{x_2-x_1}$，則通過兩點之直線為$$y-y_1=m(x-x_1).$$
+    給定不相同兩點 $P_1(x_1,y_1),P_2(x_2,y_2)$，其斜率為 $m=\dfrac{y_2-y_1}{x_2-x_1}$，則通過兩點之直線為\begin{equation}y-y_1=m(x-x_1).\end{equation}
 2. **for迴圈 for loop**
     ```arduino
     for(起始狀態; 終止條件; 遞增) {
@@ -206,10 +206,13 @@ void loop() {
 `void loop()` 執行一次為一個週期，在上述程式碼中，固定都是以 $i=0$ 到 $i=509$ 為一個週期，換句話說一次呼吸會做 $1+509=510$ 次的變化。
 
 假設現在一次週期有 $N$ 次變化，以 $x=\frac{N}{2}$ 做對稱軸時，第一條線段會通過 $P_1(0,0),P_2(\frac{N}{2},255)$，第二條線段會通過$P_2(\frac{N}{2},255),P_3(N,0)$。將上述的分段函數寫成
+$$
 \begin{cases}
     y = \dfrac{510}{N}x, &\text{for } x\in\left[0,\frac{N}{2}\right], \\
     y-255 = -\dfrac{510}{N}\left(x-\frac{N}{2}\right), &\text{for } x\in\left[\frac{N}{2},N\right].
 \end{cases} 用絕對值表示的話
+$$
+
 \begin{align}
     y
     & =-\dfrac{510}{N}\left\vert x-\frac{N}{2} \right\vert+255 \\
