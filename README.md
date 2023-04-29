@@ -16,7 +16,7 @@
 ## 先備知識與器材 Preliminary
 在開始實作前，需要先準備一些基礎知識
 1. **直線方程式中的點斜式 Point-slope**
-    給定不相同兩點 $P_1(x_1,y_1),P_2(x_2,y_2)$，其斜率為 $m=\dfrac{y_2-y_1}{x_2-x_1}$，則通過兩點之直線為$$\begin{equation}y-y_1=m(x-x_1).\end{equation}$$
+    給定不相同兩點 $P_1(x_1,y_1),P_2(x_2,y_2)$，其斜率為 $m=\dfrac{y_2-y_1}{x_2-x_1}$，則通過兩點之直線為$$y-y_1=m(x-x_1).$$
 2. **for迴圈 for loop**
     ```arduino
     for(起始狀態; 終止條件; 遞增) {
