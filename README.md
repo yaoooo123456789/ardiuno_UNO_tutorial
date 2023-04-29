@@ -16,10 +16,8 @@
 ## 先備知識與器材 Preliminary
 在開始實作前，需要先準備一些基礎知識
 1. **直線方程式中的點斜式 Point-slope**
-    給定不相同兩點 $P_1(x_1,y_1),P_2(x_2,y_2)$，其斜率為 $m=\dfrac{y_2-y_1}{x_2-x_1}$，則通過兩點之直線為
-    $$
-    y-y_1=m(x-x_1)
-    $$
+    給定不相同兩點 $P_1(x_1,y_1),P_2(x_2,y_2)$ ，其斜率為 $m=\dfrac{y_2-y_1}{x_2-x_1}$ ，則通過兩點之直線為 $y-y_1 = m(x-x_1)$
+    
 2. **for迴圈 for loop**
     ```arduino
     for(起始狀態; 終止條件; 遞增) {
@@ -80,10 +78,13 @@ void loop() {
 ### 第一個呼吸燈
 最簡單的單色呼吸燈，在 [Joshua Hrisko](https://makersportal.com/blog/2020/3/27/simple-breathing-led-in-arduino) 中給出的最簡單呼吸燈模型，是以 $f(x)=x$ 這個線性函數構造的。
 
-用點斜式來理解這個函數。$$P_1(0,0),\quad P_2(255,255)$$ 可以得到一斜率為 $m=1$的直線方程式 
-\begin{equation}
-    y=x
-\end{equation}以下為程式碼範例
+用點斜式來理解這個函數。 $P_1(0,0), P_2(255,255)$ 可以得到一斜率為 $m=1$ 的直線方程式 
+
+$$
+y=x
+$$
+
+以下為程式碼範例
 ```arduino=
 int R_pin = 9;    // Red 以 9 號腳位做為輸出
 int G_pin = 10;   // Green 以 10 號腳位做為輸出
@@ -104,10 +105,10 @@ void loop() {
 
 LED燈亮暗要靠 `analogWrite(pin, value)` 控制 `value` 的數值，上述從暗到亮的過程是從 $0$ 至 $255$，反過來說要讓他從亮到暗，就得從 $255$ 至 $0$。
 
-一樣給定兩個點 $$P_1(510,0),\quad P_2(255,255)$$ 從 $255$ 至 $0$ 的斜率為 $m=-1$ ，其直線方程式為 
+一樣給定兩個點 $P_1(510,0), P_2(255,255)$ 從 $255$ 至 $0$ 的斜率為 $m=-1$ ，其直線方程式為
 
 $$
- y-255=-(x-255)
+y-255=-(x-255)
 $$
 
 將兩段函數組合在一起可以得到
@@ -123,9 +124,9 @@ $$
 
 如果畫出圖形，觀察可以得知是以 $x=255$ 對稱的函數，我們可以用絕對值表示
 
-\begin{equation}
-    y-255 = -\lvert x-255 \rvert, \text{ for }x\in[0,510]
-\end{equation}
+$$
+y-255 = -\lvert x-255 \rvert, \text{ for }x\in[0,510]
+$$
 
 以下為程式碼
 
@@ -178,14 +179,12 @@ void loop() {
 
 Joshua Hrisko 給了幾個設計好的函數。其中一個由圓的方程式而來，考慮以半徑$r=255$，圓心為$(0,255)$的圓方程式
 
-\begin{equation}
-    y^2+(x-255)^2 = 255^2
-\end{equation}
+$$
+y^2+(x-255)^2 = 255^2
+$$
 
 移項開根號，可以得到上半圓的函數
-\begin{equation}
-    y=\sqrt{255^2-(x-255)^2}
-\end{equation}
+$$y=\sqrt{255^2-(x-255)^2}$$
 
 程式碼的範例為下
 
@@ -219,21 +218,25 @@ void loop() {
 
 `void loop()` 執行一次為一個週期，在上述程式碼中，固定都是以 $i=0$ 到 $i=509$ 為一個週期，換句話說一次呼吸會做 $1+509=510$ 次的變化。
 
-假設現在一次週期有 $N$ 次變化，以 $x=\frac{N}{2}$ 做對稱軸時，第一條線段會通過 $P_1(0,0),P_2(\frac{N}{2},255)$，第二條線段會通過$P_2(\frac{N}{2},255),P_3(N,0)$。將上述的分段函數寫成
+假設現在一次週期有 $N$ 次變化，以 $x=\frac{N}{2}$ 做對稱軸時，第一條線段會通過 $P_1(0,0),P_2(\frac{N}{2},255)$ ，第二條線段會通過 $P_2(\frac{N}{2},255),P_3(N,0)$ 。將上述的分段函數寫成
+
 $$
 \begin{cases}
-    y = \dfrac{510}{N}x, &\text{for } x\in\left[0,\frac{N}{2}\right], \\
-    y-255 = -\dfrac{510}{N}\left(x-\frac{N}{2}\right), &\text{for } x\in\left[\frac{N}{2},N\right].
-\end{cases} 
+y = \dfrac{510}{N}x, &\text{for } x \in [0,\dfrac{N}{2}], \\
+y-255 = -\dfrac{510}{N}\left(x-\frac{N}{2}\right), &\text{for } x \in [\dfrac{N}{2},N].
+\end{cases}
 $$
+
 用絕對值表示的話
 
+$$
 \begin{align}
     y
     & =-\dfrac{510}{N}\left\vert x-\frac{N}{2} \right\vert+255 \\
     & = 255\left(1-\frac{2}{N}\left\vert x-\frac{N}{2} \right\vert\right) \\
     & = 255\left(1-\left\vert \frac{2x}{N}-1 \right\vert\right)
 \end{align}
+$$
 
 ```arduino
 int R_pin = 9;    // Red 以 9 號腳位做為輸出
@@ -261,9 +264,6 @@ void loop() {
 }
 ```
 
-
-\begin{equation}
-\end{equation}
 
 
 ### RGB參數式
