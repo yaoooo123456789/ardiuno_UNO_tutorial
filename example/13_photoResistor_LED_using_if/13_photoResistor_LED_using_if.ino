@@ -1,23 +1,27 @@
-// 定義蜂鳴器引腳
-int buzzerPin = 9;
-
-// 定義音符和音符的持續時間（以毫秒為單位），以實現60 BPM
-int melody[] = {262, 262, 392, 392, 440, 440, 392, 0, 349, 349, 330, 330, 294, 294, 262, 0};
-int noteDurations[] = {500, 500, 750, 750, 667, 667, 1500, 3000, 857, 857, 1000, 1000, 750, 750, 500, 3000};
+int photoResistor = A0; // 設定光敏電阻類比訊號的腳位
+int LEDpin = 2;         // 設定 LED 的腳位 數位(digital)腳位
+int value;              // 儲存光敏電阻的類比訊號值
 
 void setup() {
-  // 設置蜂鳴器引腳為輸出
-  pinMode(buzzerPin, OUTPUT);
+  pinMode(photoResistor, INPUT);
+  pinMode(LEDpin, OUTPUT);
+  Serial.begin(9600);
 }
 
 void loop() {
-  // 播放音樂
-  for (int i = 0; i < 16; i++) {
-    int duration = noteDurations[i];
-    tone(buzzerPin, melody[i], duration);
-    int pauseBetweenNotes = duration * 1.30;
-    delay(pauseBetweenNotes);
-    noTone(buzzerPin);
+  value = analogRead(photoResistor);
+  Serial.print("Analog signal: ");
+  Serial.println(value);
+  
+  if(value > 10 & value < 20) {     // 判斷 value 是否介於 10(不包含) 到 20 之間
+    Serial.println("It is dim.");
+  } else if(value <= 10) {          // 判斷 value 是否小於等於 10
+    Serial.println("It is dark.");
+    digitalWrite(LEDpin, HIGH);     // 數位訊號給高電壓 讓 LED 亮
+  } else {                          // 其他狀況
+    Serial.println("It is bright.");
+    digitalWrite(LEDpin, LOW);      // 數位訊號給低電壓 不讓 LED 做事
   }
-  delay(1000);  // 停頓一秒
+  delay(1000);
 }
+

@@ -1,6 +1,12 @@
 int photoResistor = A0; // 設定光敏電阻類比訊號的腳位
-int LEDpin = 2;         // 設定 LED 的腳位 數位(digital)腳位
-int value;              // 儲存光敏電阻的類比訊號值
+int LEDpin = 5;         // 設定 LED 的腳位 需要有小蚯蚓 ~ (PWM) 的符號
+int value;
+
+// 線性轉換的函數
+int reverse_map(long x, long in_max, long in_min,
+                long out_min, long out_max) {
+  return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+}
 
 void setup() {
   pinMode(photoResistor, INPUT);
@@ -12,15 +18,11 @@ void loop() {
   value = analogRead(photoResistor);
   Serial.print("Analog signal: ");
   Serial.println(value);
-  
-  if(value > 10 & value < 20) {     // 判斷 value 是否介於 10(不包含) 到 20 之間
-    Serial.println("It is dim.");
-  } else if(value <= 10) {          // 判斷 value 是否小於等於 10
-    Serial.println("It is dark.");
-    digitalWrite(LEDpin, HIGH);     // 數位訊號給高電壓 讓 LED 亮
-  } else {                          // 其他狀況
-    Serial.println("It is bright.");
-    digitalWrite(LEDpin, LOW);      // 數位訊號給低電壓 不讓 LED 做事
-  }
+
+  value = reverse_map(value,0,250,0,255);
+  Serial.print("Mapped signal: ");
+  Serial.println(value);
+
+  analogWrite(LEDpin,value);
   delay(1000);
 }
