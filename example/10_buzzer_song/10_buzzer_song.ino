@@ -4,7 +4,7 @@ void setup() {
 
 void loop() {
   digitalWrite(2,HIGH); // 輸出高電位，會叫
-  delay(1000);
+  delay(20);
   digitalWrite(2,LOW);  // 輸出低電位，不會叫
-  delay(1000);
+  delay(20);
 }
